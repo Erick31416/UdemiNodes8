@@ -1,3 +1,4 @@
+require('./config/config.js');
 var express = require('express');
 var app = express();
 const bodyParser = require('body-parser');
@@ -33,6 +34,6 @@ app.get('/', function (req, res) {
   res.json('Hello World!');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.listen(process.env.PROT, function () {
+  console.log('escuchandoen !',process.env.PROT);
 });
