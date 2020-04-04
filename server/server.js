@@ -33,7 +33,6 @@ app.delete('/usuario', function (req, res) {
 app.get('/', function (req, res) {
   res.json('Hello World!');
 });
-
 app.listen(process.env.PROT, function () {
-  console.log('escuchandoen !',process.env.PROT);
+  console.log('proces .env . port es :',process.env.PROT);
 });
