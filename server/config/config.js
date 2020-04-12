@@ -25,8 +25,8 @@ if (process.env.NODE_ENV === 'dev' && '1' == '2'){
 }else{
 
     urlDb = process.env.urlDb;
-    //console.log({urlDb});
-    //urlDb = 'mongodb+srv://nodeUser:zhqhqZiNBTnsx0t9@cluster0-jst72.mongodb.net/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
+    console.log({urlDb});
+    urlDb = 'mongodb+srv://nodeUser:zhqhqZiNBTnsx0t9@cluster0-jst72.mongodb.net/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=true';
 }
 
 process.env.URL_DB = urlDb;
