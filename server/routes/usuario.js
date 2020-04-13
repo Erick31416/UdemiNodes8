@@ -34,25 +34,38 @@ app.get('/usuario', verificartoken ,(req, res) => {
 
   app.post('/usuario',[verificartoken,isAdmin], (req, res) => {
     let body = req.body;
-    let usuario = new Usuario({
+
+    Usuario.findOne({email: body.email},(err,usuarioDb)=>{
+      if (usuarioDb) {
+        return res.status(400).json({//400 -> bad request
+          ok: false,
+          err:{
+            message: 'El mail ya esta siendo utilizado'
+          }
+      });
+      }
+      let usuario = new Usuario({
         nombre: body.nombre,
         email: body.email,
         password: bcrypt.hashSync(body.password,10),
         role: body.role
+      });
+
+      usuario.save( (err,usuarioDb) => {//save palabra reseravada de moongose.
+          if(err) {
+              return res.status(400).json({//400 -> bad request
+                  ok: false,
+                  err
+              });
+          } 
+          res.json({
+              ok: true,
+              usuario : usuarioDb
+          });
+      });
     });
 
-    usuario.save( (err,usuarioDb) => {//save palabra reseravada de moongose.
-        if(err) {
-            return res.status(400).json({//400 -> bad request
-                ok: false,
-                err
-            });
-        } 
-        res.json({
-            ok: true,
-            usuario : usuarioDb
-        });
-    });
+
   });
 
   app.put('/usuario/:id', [verificartoken,isAdmin], (req, res) => {
@@ -128,8 +141,8 @@ app.get('/usuario', verificartoken ,(req, res) => {
     });
     
   });
-  app.get('/', function (req, res) {
-    res.json('Hello World!');
-  });
+  //app.get('/', function (req, res) {
+  //  res.json('Hello World!');
+  //});
 
   module.exports = app;
