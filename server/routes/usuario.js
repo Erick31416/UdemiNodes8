@@ -3,34 +3,38 @@ var app = express();
 const bcrypt = require('bcrypt');
 const _ = require("underscore");
 const Usuario = require('../models/usuario');
+const { isAdmin,verificartoken } = require('../midelwares/autentificacion')
 
-  app.get('/usuario', function (req, res) {
-    let desde = req.query.desde || 0;
-    desde = Number(desde);
-    let limite = req.query.limite || 5;
-    limite = Number(limite);
+console.log({verificartoken});
 
-    Usuario.find({estado : true},'nombre, email,img,role,estado,google')
-    .skip(desde)
-    .limit(limite)
-    .exec((err, usuarios)=>{
-      if(err) {
-        return res.status(400).json({//400 -> bad request
-            ok: false,
-            err
-        });
-      } 
-      Usuario.count({estado : true},(err,total)=>{
-        res.json({
-          ok: true,
-          usuarios,
-          total
-        });
+app.get('/usuario', verificartoken ,(req, res) => {
+  let desde = req.query.desde || 0;
+  desde = Number(desde);
+  let limite = req.query.limite || 5;
+  limite = Number(limite);
+
+  Usuario.find({estado : true},{email:true})
+  .skip(desde)
+  .limit(limite)
+  .exec((err, usuarios)=>{
+    console.log({usuarios});
+    if(err) {
+      return res.status(400).json({//400 -> bad request
+          ok: false,
+          err
+      });
+    } 
+    Usuario.countDocuments({estado : true},(err,total)=>{
+      res.json({
+        ok: true,
+        usuarios,
+        total
       });
     });
   });
+});
 
-  app.post('/usuario', function (req, res) {
+  app.post('/usuario',[verificartoken,isAdmin], (req, res) => {
     let body = req.body;
     let usuario = new Usuario({
         nombre: body.nombre,
@@ -53,7 +57,7 @@ const Usuario = require('../models/usuario');
     });
   });
 
-  app.put('/usuario/:id', function (req, res) {
+  app.put('/usuario/:id', [verificartoken,isAdmin], (req, res) => {
 
     let identificador = req.params.id; // alkaparra : params no param
 
@@ -61,9 +65,7 @@ const Usuario = require('../models/usuario');
     let body = _.pick(req.body, validdas);
     //let body = req.body; //[tatuar]
 
-
     Usuario.findByIdAndUpdate(identificador,body,{new:true, runValidators:true},(err,usuarioDb)=>{
-      console.log({err});
       if(err) {
         return res.status(400).json({//400 -> bad request
             ok: false,
@@ -76,7 +78,7 @@ const Usuario = require('../models/usuario');
       });
     });
   });
-  app.put('/borrar/usuario/:id', function (req, res) {
+  app.put('/borrar/usuario/:id',[verificartoken,isAdmin], (req, res) => {
 
     let identificador = req.params.id; // alkaparra : params no param
 
@@ -107,7 +109,7 @@ const Usuario = require('../models/usuario');
       });
     });
   });
-  app.delete('/usuario/:id', function (req, res) {
+  app.delete('/usuario/:id',[verificartoken,isAdmin], (req, res) => {
     let id = req.params.id;
     Usuario.findByIdAndRemove(id,(err,usuaroBorrado)=>{
       if(err) {

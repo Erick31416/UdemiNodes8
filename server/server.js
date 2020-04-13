@@ -8,10 +8,15 @@ const mongoose = require('mongoose');
 //si veo app use es un midelware
 app.use(bodyParser.urlencoded({ extended: false }))
 
-app.use(require('./routes/usuario'));
+//configuracion global de rutas
+app.use(require('./routes/index'));
 
 mongoose.connect(process.env.URL_DB,
-  { useNewUrlParser: true,useCreateIndex: true },
+  { 
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true  
+  },
   (err,res)=> {
     if (err)throw err; 
     console.log('Base de datos online');
