@@ -5,8 +5,6 @@ const _ = require("underscore");
 const Usuario = require('../models/usuario');
 const { isAdmin,verificartoken } = require('../midelwares/autentificacion')
 
-console.log({verificartoken});
-
 app.get('/usuario', verificartoken ,(req, res) => {
   let desde = req.query.desde || 0;
   desde = Number(desde);
@@ -17,7 +15,7 @@ app.get('/usuario', verificartoken ,(req, res) => {
   .skip(desde)
   .limit(limite)
   .exec((err, usuarios)=>{
-    console.log({usuarios});
+
     if(err) {
       return res.status(400).json({//400 -> bad request
           ok: false,
@@ -82,9 +80,6 @@ app.get('/usuario', verificartoken ,(req, res) => {
 
     let identificador = req.params.id; // alkaparra : params no param
 
-      //let body = _.pick(req.body, ['estado']);
-      //console.log({body});
-      //body.estado = false;
       const body = {estado:false};
 
       Usuario.findByIdAndUpdate(identificador,body,{new:true},(err,usuarioDb)=>{

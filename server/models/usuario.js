@@ -17,7 +17,7 @@ let usuarioSchema = new Schema({
     },
     email: {
         type: String,
-        //unique: true,
+        unique: true,
         required: [true, 'El correo es necesario']
     },
     password:{
@@ -48,6 +48,6 @@ usuarioSchema.methods.toJSON = function () {
     delete userObject.password;
     return userObject;
 }
-usuarioSchema.plugin(uniqueValidator,{message:'{PATH} debe de ser único'});
+//usuarioSchema.plugin(uniqueValidator,{message:'{PATH} debe de ser único'});
 module.exports = mongoose.model('Usuario',usuarioSchema);
 

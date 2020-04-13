@@ -17,7 +17,6 @@ let verificartoken = (req,res,next)=>{
                 }
             });
         }
-        console.log({decode});
         req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuariodb
 
         next();
@@ -28,7 +27,6 @@ let verificartoken = (req,res,next)=>{
 //║  verificar role admin
 //╚══════════════════════╩╝
 let isAdmin = (req,res,next)=>{
-    //console.log({req});
 
     userLog = req.usarioLog;
 
