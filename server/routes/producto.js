@@ -41,6 +41,12 @@ app.post('/producto', [verificartoken], (req, res) => {
         }
 
         Catetoria.findById(body.catetoriaId,(err,categoriadb)=>{
+            if (err) {
+                return res.status(400).json({//400 -> bad request
+                    ok: false,
+                    err
+                });
+            }
             console.log({categoriadb});
             let producto = new Producto({
                 nombre: body.nombre,
