@@ -17,8 +17,7 @@ let verificartoken = (req,res,next)=>{
                 }
             });
         }
-        req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuariodb
-
+        req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuarioDb
         next();
     })
 };
@@ -28,9 +27,9 @@ let verificartoken = (req,res,next)=>{
 //╚══════════════════════╩╝
 let isAdmin = (req,res,next)=>{
 
-    userLog = req.usarioLog;
+    usarioLog = req.usarioLog;
 
-    if (userLog.role != 'ADMIN_ROLE') {
+    if (usarioLog.role != 'ADMIN_ROLE') {
         return res.status(401).json({
             ok: false,
             err :{

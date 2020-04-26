@@ -71,10 +71,7 @@ async function verify(token) {
         //[CLIENT_ID_1, CLIENT_ID_2, CLIENT_ID_3]
     });
     const payload = ticket.getPayload();
-    console.log('----------');
-    console.log(payload.name);
-    console.log(payload.email);
-    console.log(payload.picture);
+
     //const userid = payload['sub'];
     return{
         nombre: payload.name,
@@ -92,7 +89,7 @@ app.post('/google', async (req, res) => {
     let token = req.body.idtoken;
     let googleUser = await verify (token)
     .catch(e => {
-        console.log({e});
+        //console.log({e});//revisar esto por que peta
         return res.status(403).json({
             ok: false,
             e
