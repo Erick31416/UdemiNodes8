@@ -104,9 +104,10 @@ app.post('/upload/:tipo/:id', function(req, res) {
             case 'usuarios':
                   
                 imagenUsuario(id,res,nombreArchivo);
+                break;
             case 'productos':
-            
                 imagenproducto(id,res,nombreArchivo);
+                break;
           }
           
 
