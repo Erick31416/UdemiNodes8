@@ -21,6 +21,29 @@ let verificartoken = (req,res,next)=>{
         next();
     })
 };
+//╔═══════════════════╦╗
+//║  verificar tokken imangen
+//╚═══════════════════╩╝
+let verificartokenImagen = (req,res,next)=>{
+
+    //let token = req.body.idtoken;
+    //let tipo = req.params.tipo;
+    let token = req.query.token;
+    
+
+    jwt.verify(token,process.env.SEMILLA,(err,decode)=>{
+        if(err){
+            return res.status(401).json({
+                ok: false,
+                err :{
+                    'message':'token no valido'
+                }
+            });
+        }
+        req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuarioDb
+        next();
+    })
+};
 
 //╔══════════════════════╦╗
 //║  verificar role admin
@@ -42,5 +65,6 @@ let isAdmin = (req,res,next)=>{
 
 module.exports = {
     verificartoken,
-    isAdmin
+    isAdmin,
+    verificartokenImagen
 }

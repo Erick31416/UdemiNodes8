@@ -131,10 +131,17 @@ app.put('/producto/:id', [verificartoken], (req, res) => {
     });
 });
 app.delete('/producto/:id', [verificartoken], (req, res) => {
-    let identificador = req.params.id; // alkaparra : params no param
+    let identificador = req.params.id; // alkaparra : param
 
     Producto.findById(identificador, (err, productoDb) => {
+
         if (err) {
+            return res.status(400).json({//400 -> bad request
+                ok: false,
+                err
+            });
+        }
+        if (productoDb == null) {
             return res.status(400).json({//400 -> bad request
                 ok: false,
                 err
