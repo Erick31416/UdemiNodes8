@@ -4,7 +4,22 @@ var app = express();
 //const _ = require("underscore");
 const Categoria = require('../models/categoria');
 
-const { isAdmin, verificartoken } = require('../midelwares/autentificacion');
+const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/autentificacion');
+
+
+
+app.get('/mostrandoPlantilla',verificartoken_web,  (req, res) => {
+    
+
+    //let token = req.get('token');//
+
+
+
+    res.render('primerTwig',{
+        paco : "estas logeado"
+      });
+    
+});
 
 app.get('/categoria', verificartoken, (req, res) => {
     Categoria.find({})

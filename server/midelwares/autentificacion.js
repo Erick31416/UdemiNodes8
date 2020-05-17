@@ -1,12 +1,11 @@
 
 const jwt = require('jsonwebtoken');
 
+
 //╔═══════════════════╦╗
 //║  verificar tokken
 //╚═══════════════════╩╝
 let verificartoken = (req,res,next)=>{
-
-    let token = req.get('token');//
 
     jwt.verify(token,process.env.SEMILLA,(err,decode)=>{
         if(err){
@@ -63,8 +62,28 @@ let isAdmin = (req,res,next)=>{
     next();
 };
 
+//╔═══════════════════╦╗
+//║  verificar tokken
+//╚═══════════════════╩╝
+let verificartoken_web = (req,res,next)=>{
+
+    jwt.verify(req.session.token,process.env.SEMILLA,(err,decode)=>{
+        if(err){
+            return res.status(401).json({
+                ok: false,
+                err :{
+                    'message':'token no valido'
+                }
+            });
+        }
+        req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuarioDb
+        next();
+    })
+};
+
 module.exports = {
     verificartoken,
     isAdmin,
-    verificartokenImagen
+    verificartokenImagen,
+    verificartoken_web
 }

@@ -6,17 +6,88 @@
     <title>Google sing in demo</title>
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <meta name="google-signin-client_id" content="388184007098-q8ilbhrfon8i52bfrngdc7rqvc614i68.apps.googleusercontent.com">
+    <style>
+      .contenedorLogin{
+        display: flex;
+        justify-content: center;
+      }
+      .cuadroLogin{
+        width: 500px;
+        border: solid;
+        border-color: #4F275B;
+        border-radius: 17px;
+        padding: 1rem;
+        text-align: center;
+        background-color: #CCD258;
+      }
+      .g-signin2{
+        width: 120px;
+        margin: auto;
+      }
+      .remSpiroIn{
+        padding: 1rem;
+      }
+      header{
+        color: #CCD258;
+        background-color: #4F275B;
+      }
+      body{
+        background-color: #D2E6AF;
+      }
+      
+    </style>
 </head>
 <body>
-    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <header> 
+      <div>simbolo del kanku</div>
+      <div>link a las instruciones</div>
+      <pre>
+          acuerdate de levantar primero la base de datos.
+          Cuando pides la ruta google por postman, casca.
+          hay que mirar el plugin de vigotes.
+          
+      </pre>
+    </header>
+    <div class="contenedorLogin remSpiroIn">
+
+      <div class="cuadroLogin">
+        <div class="cuadroLogin_imagen remSpiroIn"> 
+          <img id='imagen_de_usuarios' src="article.jpeg" alt="">
+        </div>
+        <div class="g-singin2-container remSpiroIn">
+          <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </div>
+        <a class=" remSpiroIn" href="#" onclick="signOut();">Sign out</a>
+      </div>
+
+    </div>
+
+
+    <a href="/web_login">Login</a>
+    <br>
+    <a href="/panel">Ingresar al panel de control.</a>
+    <br>
+    <a href="http://localhost:3000/mostrandoPlantilla">pedir productos</a>
+    
+
     <img src="http://localhost:3000/imagen/productos/5ea542f6dd65212a27e6bfec-572.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvRGIiOnsicm9sZSI6IkFETUlOX1JPTEUiLCJlc3RhZG8iOmZhbHNlLCJnb29nbGUiOmZhbHNlLCJfaWQiOiI1ZTkwYjdhMWJhZGQwMTM4YzU1Y2FiNDEiLCJub21icmUiOiJSaWNhcmRvIiwiZW1haWwiOiJBRE1JTkBBRE1JTi5jb20iLCJfX3YiOjB9LCJpYXQiOjE1ODgzNTUzMDQsImV4cCI6MTU4ODUyODEwNH0.GCk6p0eBi4sDlq0h1aNqN1GozlwPOUJZKpQLRuS4A9k" alt="">
-    <div>No me lo puedo de creer que a la primera funcione</div>
+
+
+    
+    
+    
+    
     <script>
         function onSignIn(googleUser) {
+          
           var profile = googleUser.getBasicProfile();
           //console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
           //console.log('Name: ' + profile.getName());
-          //console.log('Image URL: ' + profile.getImageUrl());
+          console.log('Image URL: ' + profile.getImageUrl());
+
+          var imagenUsuario = document.getElementById("imagen_de_usuarios");
+          imagenUsuario.setAttribute("src",profile.getImageUrl());
+
           //console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
 
           var id_token = googleUser.getAuthResponse().id_token;
@@ -31,16 +102,24 @@
             console.log('Signed in as: ' + xhr.responseText);
           };
           xhr.send('idtoken=' + id_token);
+          //localStorage.setItem(“userID”, 10);
+          localStorage.setItem('token', id_token);
+          console.log({id_token});
+          //localStorage.get('token');
         }
         
     </script>
-    <a href="#" onclick="signOut();">Sign out</a>
+    
     <script>
       function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
           console.log('User signed out.');
         });
+
+        var imagenUsuario = document.getElementById("imagen_de_usuarios");
+        imagenUsuario.setAttribute("src","article.jpeg");
+
       }
     </script>
 </body>

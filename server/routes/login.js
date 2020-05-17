@@ -79,7 +79,6 @@ async function verify(token) {
         img: payload.picture,
         google: true,
 
-
     }
 
   }
@@ -160,7 +159,105 @@ app.post('/google', async (req, res) => {
     //res.json({
     //    usuario : googleUser
     //});
+});
 
+
+app.get('/web_login', function(req, res, next) {
+    res.render('login');      
+    });
+
+app.post('/web_login', function(req, res, next) {
+
+    let body = req.body;
+    let error = 0;
+
+    
+    Usuario.findOne({email: body.mail},(err,usuarioDb)=>{
+        var pagina='<!doctype html><html><head></head><body>'+
+        '<p>Se creo la variable de sesión</p>'+
+        '<p>Puede ingresar al panel de control:</p>'+
+        '<a href="/mostrandoPlantilla">Ingresar</a><br>'+
+        '</body></html>';
+        if(err) {
+            var pagina='<!doctype html><html><head></head><body>'+
+            '<p>un error:</p>'+
+            '<a href="/panel">Ingresar</a><br>'+
+            '</body></html>';
+            res.send(pagina);
+            console.log(err);
+            let error = 1;
+            //return res.status(400).json({//400 -> bad request
+            //    ok: false,
+            //    err
+            //});
+        } 
+
+        if(!usuarioDb){
+            console.log('no hay usuarios');
+            var pagina='<!doctype html><html><head></head><body>'+
+            '<p>No usuario:</p>'+
+            '<a href="/panel">Ingresar</a><br>'+
+            '</body></html>';
+            let error = 1;
+            
+            //return res.status(400).json({//400 -> bad request
+            //    ok: false,
+            //    err:{
+            //        message: 'alkaparra-> Usuario o contraseña incorrecta'
+            //    }
+            //});
+        }
+
+        if (!bcrypt.compareSync(body.password,usuarioDb.password)) {
+            console.log('contreaseña ma');
+            var pagina='<!doctype html><html><head></head><body>'+
+            '<p>No contraseña:</p>'+
+            '<a href="/panel">Ingresar</a><br>'+
+            '</body></html>';
+            let error = 1;
+        }
+
+
+        let token = jwt.sign({
+                usuarioDb
+            },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN}
+        );
+        req.session.token=token;
+        res.send(pagina); 
+
+    })
+    
+
+    req.session.mail=req.body.mail;
+    
+    
+});
+app.get('/panel', function(req, res, next) {
+    if (req.session.token) {
+
+
+
+
+        
+        var pagina='<!doctype html><html><head></head><body>'+
+                '<p>Bienvenido</p>'+
+                req.session.mail+
+                '<br><a href="/logout">Logout</a></body></html>';
+        res.send(pagina);
+    } else {
+        var pagina='<!doctype html><html><head></head><body>'+
+                '<p>No tiene permitido ingresar sin login</p>'+
+                '<br><a href="/">Retornar</a></body></html>';
+        res.send(pagina);        
+    }
+});
+
+
+app.get('/logout', function(req, res, next) {
+        req.session.destroy();
+        var pagina='<!doctype html><html><head></head><body>'+
+                '<br><a href="/">Retornar</a></body></html>';
+        res.send(pagina);
 });
 
 module.exports = app;
