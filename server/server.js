@@ -21,11 +21,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 //tutoriales programacion ya.com
 app.use(session({secret: '123456', resave: true, saveUninitialized: true}));
 
-
-
 //habilitar el public
 //console.log(path.resolve( __dirname + '../public'));
 app.use(express.static(path.resolve( __dirname , '../public')));
+
+
+
+
+
+
+
 
 
 //configuracion global de rutas

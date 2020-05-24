@@ -1,9 +1,66 @@
-<form method="post" action="/web_login">
-Ingrese mail:
-<input type="mail" name="mail" size="50">
-<br>
-Ingrese clase:
-<input type="password" name="password" size="20">
-<br>
-<input type="submit" value="Ingresar">
-</form>
+
+{% include 'tools/paleta.twig' %}
+
+<style>
+    .apartadito {
+        border: solid;
+        border-radius: 1rem;
+        padding: 1rem;
+        text-align: center;
+        border-color: #836188;
+        max-width: 500px;
+        margin: auto;
+        background: #ccd258;
+        color: #4f275b;
+    }
+    label.apartidito_lavel {
+        display: block;
+    }
+    .campo {
+        padding: 0.5rem;
+    }
+    /*input.apartadito_input {*/
+    /*    */
+    /*}*/
+    input.apartadito_input {
+        margin: 0.5rem;
+        border: none;
+        background-color: #d2e6af;
+        height: 1.5rem;
+        border-radius: 5px;
+        color: #836188;
+        text-align: center;
+    }
+    input[type="submit"] {
+        border: none;
+        color: #d2e6af;
+        background: #4f275b;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+    }
+    .googleSearchStyle {
+        position: absolute;
+        left: calc(50vw - 250px);
+        top: 25hv;
+        top: 20%;
+    }
+</style>
+
+<div class="apartadito googleSearchStyle">
+    <form method="post" action="/web_login">
+        <div class="campo">
+            <label class= 'apartidito_lavel'>Ingrese mail:</label>
+            <input class = 'apartadito_input' type="mail" name="mail" size="50">
+        </div>
+
+        <br>
+        <div class="campo">
+            <label class= 'apartidito_lavel'>Ingrese clase:</label>
+            <input class = 'apartadito_input' type="password" name="password" size="20">
+        </div>
+
+        <br>
+        <input type="submit" value="Ingresar">
+    </form>
+</div>
+{% include './piezasComunes/final.twig' %}

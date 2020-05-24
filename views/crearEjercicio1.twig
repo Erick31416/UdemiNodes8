@@ -1,0 +1,27 @@
+<form method="post" action="/postejerccio">
+Ingrese enunciado:
+<input type="text" name="enunciado" size="50">
+<br>
+Ingrese respuesta::
+<input type="text" name="respuesta" size="20">
+<br>
+<div id = "ancla"></div>
+<input type="submit" value="guardar">
+</form>
+<button onclick="myFunction()" id = "añadir">Otra respuesta correta</button>
+
+<script>
+
+function myFunction(){
+
+    var div = document.getElementById('ancla');
+    
+    div.innerHTML += `
+            Ingrese respuesta:
+            <input type="text" name="respuesta" size="20">
+            <br>
+`;
+
+};
+
+</script>

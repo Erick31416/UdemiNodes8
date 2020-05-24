@@ -174,8 +174,9 @@ app.post('/web_login', function(req, res, next) {
     
     Usuario.findOne({email: body.mail},(err,usuarioDb)=>{
         var pagina='<!doctype html><html><head></head><body>'+
-        '<p>Se creo la variable de sesión</p>'+
-        '<p>Puede ingresar al panel de control:</p>'+
+        '<p>Acciones:</p>'+
+        '<a href="/crearEje">crear un ejercicio</a><br>'+
+        '<a href="/listaEje">ver la lista de ejercicios</a><br>'+
         '<a href="/mostrandoPlantilla">Ingresar</a><br>'+
         '</body></html>';
         if(err) {
