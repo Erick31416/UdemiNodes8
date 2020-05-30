@@ -57,9 +57,13 @@ app.get('/examentipozero',verificartoken_web,  (req, res) => {
         if (err) {
             res.render('login');
         }
-        console.log({preguntas});
+
+        max = preguntas.length;
+        min = 0;
+        nEjerccio = Math.floor(Math.random() * (max - min)) + min;
+
         res.render('hacerUnaPregunta',{
-            pregunta : preguntas[0]
+            pregunta : preguntas[nEjerccio]
           });
 
     });

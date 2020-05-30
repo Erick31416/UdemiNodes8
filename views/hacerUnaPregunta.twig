@@ -1,8 +1,8 @@
 {% include 'piezasComunes/cabezera.twig' %}
 
-    <br><label for="respuesta_del_examiando">{{pregunta.enunciado}}</label>
-    <br><input type="text" id="respuesta_del_examiando">
     <div class="googleSearchStyle apartadito">
+        <label for="respuesta_del_examiando">{{pregunta.enunciado}}</label>
+        <input type="text" id="respuesta_del_examiando">
     
 
         {% for respuesta in pregunta.respuestas %}
