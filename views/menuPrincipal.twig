@@ -1,0 +1,17 @@
+{% include 'piezasComunes/cabezera.twig' %}
+
+<div class="googleSearchStyle apartadito">
+
+
+    {% for opcion in opcionesMenu %}
+        <br> <a href="{{opcion.ruta}}">{{opcion.slug}}</a> 
+    {% else %}
+        else ¿que? como va esto
+    {% endfor %}
+    <br>
+    {# <br>Ejemplo de elemento de array de arrays asociativos #}
+    {# <br> {{opcionesMenu2[0].coche}} #}
+</div>
+
+
+{% include 'piezasComunes/cabezera.twig' %}

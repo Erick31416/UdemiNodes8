@@ -1,14 +1,19 @@
-<form method="post" action="/postejerccio">
-Ingrese enunciado:
-<input type="text" name="enunciado" size="50">
-<br>
-Ingrese respuesta::
-<input type="text" name="respuesta" size="20">
-<br>
-<div id = "ancla"></div>
-<input type="submit" value="guardar">
-</form>
-<button onclick="myFunction()" id = "añadir">Otra respuesta correta</button>
+{% include 'piezasComunes/cabezera.twig' %}
+
+<div class="googleSearchStyle apartadito">
+
+    <form method="post" action="/postejerccio">
+        Ingrese enunciado:
+        <input type="text" name="enunciado" size="50">
+        <br>
+        Ingrese respuesta::
+        <input type="text" name="respuesta" size="20">
+        <br>
+        <div id = "ancla"></div>
+        <input type="submit" value="guardar">
+    </form>
+    <button onclick="myFunction()" id = "añadir">Otra respuesta correta</button>
+</div>
 
 <script>
 

@@ -173,12 +173,24 @@ app.post('/web_login', function(req, res, next) {
 
     
     Usuario.findOne({email: body.mail},(err,usuarioDb)=>{
-        var pagina='<!doctype html><html><head></head><body>'+
-        '<p>Acciones:</p>'+
-        '<a href="/crearEje">crear un ejercicio</a><br>'+
-        '<a href="/listaEje">ver la lista de ejercicios</a><br>'+
-        '<a href="/mostrandoPlantilla">Ingresar</a><br>'+
-        '</body></html>';
+
+        var opcionesMenu = [
+            {
+                'ruta':"/crearEje",
+                'slug':"crear un ejercicio"
+            },
+            {
+                'ruta':"/listaEje",
+                'slug':"ver la lista de ejercicios"
+            },
+            {
+                'ruta':"/examentipozero",
+                'slug':"Hacer el examen tipo"
+            }
+        ];
+        
+
+        var pagina='';
         if(err) {
             var pagina='<!doctype html><html><head></head><body>'+
             '<p>un error:</p>'+
@@ -186,7 +198,7 @@ app.post('/web_login', function(req, res, next) {
             '</body></html>';
             res.send(pagina);
             console.log(err);
-            let error = 1;
+            error = 1;
             //return res.status(400).json({//400 -> bad request
             //    ok: false,
             //    err
@@ -199,7 +211,7 @@ app.post('/web_login', function(req, res, next) {
             '<p>No usuario:</p>'+
             '<a href="/panel">Ingresar</a><br>'+
             '</body></html>';
-            let error = 1;
+            error = 1;
             
             //return res.status(400).json({//400 -> bad request
             //    ok: false,
@@ -215,7 +227,7 @@ app.post('/web_login', function(req, res, next) {
             '<p>No contraseña:</p>'+
             '<a href="/panel">Ingresar</a><br>'+
             '</body></html>';
-            let error = 1;
+            error = 1;
         }
 
 
@@ -224,7 +236,21 @@ app.post('/web_login', function(req, res, next) {
             },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN}
         );
         req.session.token=token;
-        res.send(pagina); 
+        //res.send(pagina); 
+        console.log(usuarioDb.role);
+        if(usuarioDb.role = 'ADMIN_ROLE'){
+            opcionesMenu.push ({
+                'ruta':"/addnewUser",
+                'slug':"crear un usuario , por que eres un admin, campeon"
+            });
+        }
+        
+        opcionesMenu2 = [{"coche":"rojo"},{"coche":"rojo"}];
+        res.render('menuPrincipal',{
+            opcionesMenu : opcionesMenu,
+            opcionesMenu2 : opcionesMenu2,
+            error : error
+          });
 
     })
     

@@ -1,8 +1,11 @@
 
-{% for item in lista %}
+{% include 'piezasComunes/cabezera.twig' %}
 
-    
-    <a href="/contestar/enunciadorespuesta/{{item.id}}">{{item.enunciado}}</a> <br>
-    
-    
-{% endfor %}
+<div class="googleSearchStyle apartadito">
+
+    {% for item in lista %}
+
+        <a href="/contestar/enunciadorespuesta/{{item.id}}">{{item.enunciado}}</a> <br>
+
+    {% endfor %}
+</div>

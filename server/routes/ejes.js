@@ -49,6 +49,22 @@ app.get('/listaEje',verificartoken_web,  (req, res) => {
     });
     
 });
+app.get('/examentipozero',verificartoken_web,  (req, res) => {
+
+    E_preguntaRespuesta.find({})
+    .exec((err, preguntas) => {
+
+        if (err) {
+            res.render('login');
+        }
+        console.log({preguntas});
+        res.render('hacerUnaPregunta',{
+            pregunta : preguntas[0]
+          });
+
+    });
+    
+});
 
 app.get('/contestar/enunciadorespuesta/:id',verificartoken_web, (req, res) => {
 

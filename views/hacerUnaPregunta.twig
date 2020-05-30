@@ -1,0 +1,50 @@
+{% include 'piezasComunes/cabezera.twig' %}
+
+    <br><label for="respuesta_del_examiando">{{pregunta.enunciado}}</label>
+    <br><input type="text" id="respuesta_del_examiando">
+    <div class="googleSearchStyle apartadito">
+    
+
+        {% for respuesta in pregunta.respuestas %}
+            <input class = 'respuesta' type="hidden" value = "{{respuesta}}">
+        {% else %}
+            
+        {% endfor %}
+
+        <input type="button" id ="button" value="confirma">
+    </div>
+    
+    <script>
+        $(document).ready(function(){
+
+            $( ".respuesta" ).each(function( index ) {
+                console.log( index + ": " + $( this ).val() );
+            });
+            function corregir () {
+                var respuesta_del_examiando = $( "#respuesta_del_examiando" ).val();
+                console.log(respuesta_del_examiando);
+                var iscorrecta = false;
+
+                $( ".respuesta" ).each(function( index ) {
+                    if ( $(this).val() == respuesta_del_examiando){
+                        console.log($(this).val());
+                        console.log(respuesta_del_examiando);
+                        iscorrecta = true;
+                    }
+                    
+                });
+                return iscorrecta;
+
+            }
+            $( "#button" ).click(function() {
+              alert (corregir());
+              
+            });
+
+        });
+    </script>
+
+
+</body>
+</html>
+
