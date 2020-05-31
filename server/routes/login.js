@@ -177,11 +177,11 @@ app.post('/web_login', function(req, res, next) {
         var opcionesMenu = [
             {
                 'ruta':"/crearEje",
-                'slug':"crear un ejercicio"
+                'slug':"Crear un ejercicio"
             },
             {
                 'ruta':"/listaEje",
-                'slug':"ver la lista de ejercicios"
+                'slug':"Ver la lista de ejercicios"
             },
             {
                 'ruta':"/examentipozero",
@@ -241,7 +241,7 @@ app.post('/web_login', function(req, res, next) {
         if(usuarioDb.role = 'ADMIN_ROLE'){
             opcionesMenu.push ({
                 'ruta':"/addnewUser",
-                'slug':"crear un usuario , por que eres un admin, campeon"
+                'slug':"Crear un usuario."
             });
         }
         

@@ -1,0 +1,32 @@
+<div class="menusuperior">
+    <div class="deslegable">
+        <div class="hamburgesa">
+        <div>|||</div>
+            <div class = 'hamburgesa__desplegada'>
+    
+                {% for opcion in opcionesMenu %}
+                <div class="deslegable__opcion">
+                    <a href="{{opcion.ruta}}">{{opcion.slug}}</a> 
+                </div>
+                {% else %}
+                    else ¿que? como va esto
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <script>
+        $(document).ready(function(){
+
+            function mostrarMenuHamburguesa () {
+               $('.deslegable__opcion').toggle();
+
+            }
+            $( ".hamburgesa" ).click(function() {
+              mostrarMenuHamburguesa();
+              
+            });
+
+        });
+    </script>

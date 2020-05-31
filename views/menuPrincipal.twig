@@ -1,10 +1,13 @@
 {% include 'piezasComunes/cabezera.twig' %}
+{% include 'piezasComunes/logoYnav.twig' %}
 
-<div class="googleSearchStyle apartadito">
+<div class="objetocentrado apartadito">
 
 
     {% for opcion in opcionesMenu %}
-        <br> <a href="{{opcion.ruta}}">{{opcion.slug}}</a> 
+        <div class="apartadito_botonLargo">
+            <a href="{{opcion.ruta}}">{{opcion.slug}}</a> 
+        </div>
     {% else %}
         else ¿que? como va esto
     {% endfor %}
@@ -14,4 +17,4 @@
 </div>
 
 
-{% include 'piezasComunes/cabezera.twig' %}
+{% include 'piezasComunes/final.twig' %}
