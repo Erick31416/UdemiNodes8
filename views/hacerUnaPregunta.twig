@@ -11,12 +11,13 @@
             
         {% endfor %}
 
-        <input type="button" id ="button" value="confirma">
+        <input type="button" id ="corrige" value="confirma">
+        <input type="button" id ="solucion" value="solucion">
     </div>
     
     <script>
         $(document).ready(function(){
-
+            console.log('listo');
             $( ".respuesta" ).each(function( index ) {
                 console.log( index + ": " + $( this ).val() );
             });
@@ -36,8 +37,18 @@
                 return iscorrecta;
 
             }
-            $( "#button" ).click(function() {
+            $( "#corrige" ).click(function() {
               alert (corregir());
+              
+            });
+            $( "#solucion" ).click(function() {
+                var repuestas = '';
+
+                $( ".respuesta" ).each(function( index ) {
+                    repuestas = $(this).val()+' o ';
+
+                });
+                alert (repuestas);
               
             });
 
