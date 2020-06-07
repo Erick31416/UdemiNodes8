@@ -1,6 +1,7 @@
 {% include 'piezasComunes/cabezera.twig' %}
+{% include 'piezasComunes/logoYnav.twig' %}
 
-    <div class="googleSearchStyle apartadito">
+    <div class="objetocentrado apartadito">
         <label for="respuesta_del_examiando">{{pregunta.enunciado}}</label>
         <input type="text" id="respuesta_del_examiando">
     
@@ -11,8 +12,12 @@
             
         {% endfor %}
 
-        <input type="button" id ="corrige" value="confirma">
-        <input type="button" id ="solucion" value="solucion">
+        <div class="botoneraDedoGordo">
+            <input type="button" id ="solucion" value="Ver solucion">
+            <input type="button" id ="corrige" value="Corregir">
+        </div>
+
+        
     </div>
     
     <script>
@@ -45,7 +50,7 @@
                 var repuestas = '';
 
                 $( ".respuesta" ).each(function( index ) {
-                    repuestas = $(this).val()+' o ';
+                    repuestas = repuestas + $(this).val()+' o \n';
 
                 });
                 alert (repuestas);

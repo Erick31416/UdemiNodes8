@@ -70,9 +70,9 @@ input[type="submit"] {
     display:block;
 }
 .menusuperior {
-    border: solid;
-    border-radius: 5px;
-    padding: 5px;
+        border: solid;
+        border-radius: 5px;
+        padding: 5px;
     border-color: #D24BAE;
     background: #4F275B;
     color: #D2E6AF;
@@ -83,4 +83,14 @@ input[type="submit"] {
     top: 40px;
     margin: 10px 0;
     font-size: 1.2rem;
+}
+.botoneraDedoGordo >input{
+    margin: 1rem 0 0 auto;
+    display: block;
+    border: solid;
+    border-radius: 5px;
+    padding: 5px;
+    border-color: #D24BAE;
+    background: #4F275B;
+    color: #D2E6AF;
 }
