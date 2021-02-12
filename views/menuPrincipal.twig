@@ -3,13 +3,13 @@
 
 <div class="objetocentrado apartadito">
 
-
+    
     {% for opcion in opcionesMenu %}
         <div class="apartadito_botonLargo">
             <a href="{{opcion.ruta}}">{{opcion.slug}}</a> 
         </div>
     {% else %}
-        else ¿que? como va esto
+        Ninguna opcion aqui.
     {% endfor %}
     <br>
     {# <br>Ejemplo de elemento de array de arrays asociativos #}

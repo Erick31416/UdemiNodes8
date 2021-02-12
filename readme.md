@@ -5,8 +5,14 @@
 Localizacion -> codigos.
 Pasos para empezar: Arrancar db
 
+Retomando esto febrero de 20201
+para arrancanr la base de datos `mongod`
+ha funcioando con poner npm start en la carpeta que contenia el proyecto.
+en principio para arrancar la db habria que hacer mongod, pero no se si es que esta arrancada todo el tiempo.
+
 
 **Índice**   
+1. [Marcas frecuentes](#Retomando)
 1. [Marcas frecuentes](#tema01)
 2. [Segundo apartado](#tema02)
 

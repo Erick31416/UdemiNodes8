@@ -1,7 +1,6 @@
 
 const jwt = require('jsonwebtoken');
 
-
 //╔═══════════════════╦╗
 //║  verificar tokken
 //╚═══════════════════╩╝
@@ -67,7 +66,9 @@ let isAdmin = (req,res,next)=>{
 //╚═══════════════════╩╝
 let verificartoken_web = (req,res,next)=>{
 
+
     jwt.verify(req.session.token,process.env.SEMILLA,(err,decode)=>{
+        console.log({err});
         if(err){
             return res.status(401).json({
                 ok: false,

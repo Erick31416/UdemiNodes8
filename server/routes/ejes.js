@@ -49,6 +49,19 @@ app.get('/listaEje',verificartoken_web,  (req, res) => {
     });
     
 });
+app.get('/listaEjePostMan',  (req, res) => {
+
+    E_preguntaRespuesta.find({})
+    .exec((err, preguntas) => {
+
+        if (err) {
+            res.render('login');
+        }
+        res.preguntas;
+
+    });
+    
+});
 app.get('/examentipozero',verificartoken_web,  (req, res) => {
 
     E_preguntaRespuesta.find({})

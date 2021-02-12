@@ -61,7 +61,7 @@ input[type="submit"] {
     margin: 1rem auto;
 }
 .deslegable__opcion{
-    display: none;
+    
 }
 .hamburgesa__desplegada {
     position: absolute;
@@ -79,10 +79,18 @@ input[type="submit"] {
     font-weight: bold;
 }
 .hamburgesa__desplegada {
+    display: none;
     position: absolute;
     top: 40px;
     margin: 10px 0;
     font-size: 1.2rem;
+    background-color: #ccd258;
+    padding: 1rem;
+    border: solid;
+    border-color: #836188;
+    border-radius: 5px;
+    opacity: 0.99;
+    
 }
 .botoneraDedoGordo >input{
     margin: 1rem 0 0 auto;

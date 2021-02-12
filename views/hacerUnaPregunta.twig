@@ -53,9 +53,17 @@
                     repuestas = repuestas + $(this).val()+' o \n';
 
                 });
+                $("#respuesta_del_examiando").focus();
                 alert (repuestas);
               
             });
+
+            $("#respuesta_del_examiando").keypress(function(e) {
+                if(e.which == 13) {
+                    alert (corregir());
+                }
+            });
+            
 
         });
     </script>
