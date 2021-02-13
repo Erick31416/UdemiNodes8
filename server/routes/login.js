@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const {OAuth2Client} = require('google-auth-library');
+const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 const Usuario = require('../models/usuario');
@@ -11,32 +11,32 @@ const app = express();
 
 app.post('/login', function (req, res) {
     let body = req.body;
-    Usuario.findOne({email: body.email},(err,usuarioDb)=>{
-        if(err) {
+    Usuario.findOne({ email: body.email }, (err, usuarioDb) => {
+        if (err) {
             return res.status(400).json({//400 -> bad request
                 ok: false,
                 err
             });
-        } 
-        if(!usuarioDb){
+        }
+        if (!usuarioDb) {
             return res.status(400).json({//400 -> bad request
                 ok: false,
-                err:{
+                err: {
                     message: 'alkaparra-> Usuario o contraseña incorrecta'
                 }
             });
         }
-        if (!bcrypt.compareSync(body.password,usuarioDb.password)) {
+        if (!bcrypt.compareSync(body.password, usuarioDb.password)) {
             return res.status(400).json({//400 -> bad request
                 ok: false,
-                err:{
+                err: {
                     message: ' Usuario o alkaparra-> contraseña incorrecta'
                 }
             });
         }
         let token = jwt.sign({
             usuarioDb
-        },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN}
+        }, process.env.SEMILLA, { expiresIn: process.env.CADUCIDAD_TOKEN }
 
         );
         res.json({
@@ -73,41 +73,41 @@ async function verify(token) {
     const payload = ticket.getPayload();
 
     //const userid = payload['sub'];
-    return{
+    return {
         nombre: payload.name,
-        email:payload.email,
+        email: payload.email,
         img: payload.picture,
         google: true,
 
     }
 
-  }
-  //verify().catch(console.error);
+}
+//verify().catch(console.error);
 
 app.post('/google', async (req, res) => {
     let token = req.body.idtoken;
-    let googleUser = await verify (token)
-    .catch(e => {
-        //console.log({e});//revisar esto por que peta
-        return res.status(403).json({
-            ok: false,
-            e
+    let googleUser = await verify(token)
+        .catch(e => {
+            //console.log({e});//revisar esto por que peta
+            return res.status(403).json({
+                ok: false,
+                e
+            });
         });
-    });
-    Usuario.findOne ({email: googleUser.email},(err,usuarioDb)=>{
-        if(err) {
+    Usuario.findOne({ email: googleUser.email }, (err, usuarioDb) => {
+        if (err) {
             return res.status(500).json({//400 -> bad request
                 ok: false,
                 err
             });
-        } 
+        }
 
-        if (usuarioDb){
-            if (usuarioDb.google == false){
+        if (usuarioDb) {
+            if (usuarioDb.google == false) {
 
                 return res.status(400).json({//400 -> bad request
                     ok: false,
-                    err :{
+                    err: {
                         message: 'Debe usar su autientificacion normal'
                     }
                 });
@@ -115,11 +115,11 @@ app.post('/google', async (req, res) => {
             } else {
                 let token = jwt.sign({
                     usuarioDb
-                },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN});
+                }, process.env.SEMILLA, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
                 return res.json({
                     ok: true,
-                    usuario : usuarioDb,
+                    usuario: usuarioDb,
                     token,
                 });
             }
@@ -132,8 +132,8 @@ app.post('/google', async (req, res) => {
             usuario.google = true;
             usuario.password = ':)';
 
-            usuario.save((err,usuarioDb) => {
-                if(err) {
+            usuario.save((err, usuarioDb) => {
+                if (err) {
                     return res.status(500).json({//400 -> bad request
                         ok: false,
                         err
@@ -141,11 +141,11 @@ app.post('/google', async (req, res) => {
                 }
                 let token = jwt.sign({
                     usuarioDb
-                },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN});
+                }, process.env.SEMILLA, { expiresIn: process.env.CADUCIDAD_TOKEN });
 
                 return res.json({
                     ok: true,
-                    usuario : usuarioDb,
+                    usuario: usuarioDb,
                     token,
                 });
 
@@ -162,40 +162,40 @@ app.post('/google', async (req, res) => {
 });
 
 
-app.get('/web_login', function(req, res, next) {
-    res.render('login');      
-    });
+app.get('/web_login', function (req, res, next) {
+    res.render('login');
+});
 
-app.post('/web_login', function(req, res, next) {
+app.post('/web_login', function (req, res, next) {
 
     let body = req.body;
     let error = 0;
 
-    
-    Usuario.findOne({email: body.mail},(err,usuarioDb)=>{
+
+    Usuario.findOne({ email: body.mail }, (err, usuarioDb) => {
 
         var opcionesMenu = [
             {
-                'ruta':"/crearEje",
-                'slug':"Crear un ejercicio"
+                'ruta': "/crearEje",
+                'slug': "Crear un ejercicio"
             },
             {
-                'ruta':"/listaEje",
-                'slug':"Ver la lista de ejercicios"
+                'ruta': "/listaEje",
+                'slug': "Ver la lista de ejercicios"
             },
             {
-                'ruta':"/examentipozero",
-                'slug':"Hacer el examen tipo"
+                'ruta': "/examentipozero",
+                'slug': "Hacer el examen tipo"
             }
         ];
-        
 
-        var pagina='';
-        if(err) {
-            var pagina='<!doctype html><html><head></head><body>'+
-            '<p>un error:</p>'+
-            '<a href="/panel">Ingresar</a><br>'+
-            '</body></html>';
+
+        var pagina = '';
+        if (err) {
+            var pagina = '<!doctype html><html><head></head><body>' +
+                '<p>un error:</p>' +
+                '<a href="/panel">Ingresar</a><br>' +
+                '</body></html>';
             res.send(pagina);
             console.log(err);
             error = 1;
@@ -203,16 +203,16 @@ app.post('/web_login', function(req, res, next) {
             //    ok: false,
             //    err
             //});
-        } 
+        }
 
-        if(!usuarioDb){
+        if (!usuarioDb) {
             console.log('no hay usuarios');
-            var pagina='<!doctype html><html><head></head><body>'+
-            '<p>No usuario:</p>'+
-            '<a href="/panel">Ingresar</a><br>'+
-            '</body></html>';
+            var pagina = '<!doctype html><html><head></head><body>' +
+                '<p>No usuario:</p>' +
+                '<a href="/panel">Ingresar</a><br>' +
+                '</body></html>';
             error = 1;
-            
+
             //return res.status(400).json({//400 -> bad request
             //    ok: false,
             //    err:{
@@ -221,70 +221,68 @@ app.post('/web_login', function(req, res, next) {
             //});
         }
 
-        if (!bcrypt.compareSync(body.password,usuarioDb.password)) {
+        if (!bcrypt.compareSync(body.password, usuarioDb.password)) {
             console.log('contreaseña ma');
-            var pagina='<!doctype html><html><head></head><body>'+
-            '<p>No contraseña:</p>'+
-            '<a href="/panel">Ingresar</a><br>'+
-            '</body></html>';
+            var pagina = '<!doctype html><html><head></head><body>' +
+                '<p>No contraseña:</p>' +
+                '<a href="/panel">Ingresar</a><br>' +
+                '</body></html>';
             error = 1;
         }
 
 
         let token = jwt.sign({
-                usuarioDb
-            },process.env.SEMILLA,{expiresIn: process.env.CADUCIDAD_TOKEN}
+            usuarioDb
+        }, process.env.SEMILLA, { expiresIn: process.env.CADUCIDAD_TOKEN }
         );
-        req.session.token=token;
+        req.session.token = token;
         //res.send(pagina); 
         console.log(usuarioDb.role);
-        if(usuarioDb.role = 'ADMIN_ROLE'){
-            opcionesMenu.push ({
-                'ruta':"/addnewUser",
-                'slug':"Crear un usuario."
+        if (usuarioDb.role = 'ADMIN_ROLE') {
+            opcionesMenu.push({
+                'ruta': "/addnewUser",
+                'slug': "Crear un usuario."
             });
         }
-        
-        opcionesMenu2 = [{"coche":"rojo"},{"coche":"rojo"}];
-        res.render('menuPrincipal',{
-            opcionesMenu : opcionesMenu,
-            opcionesMenu2 : opcionesMenu2,
-            error : error
-          });
+
+        res.render('menuPrincipal', {
+            opcionesMenu: opcionesMenu,
+            error: error
+        });
 
     })
-    
 
-    req.session.mail=req.body.mail;
-    
-    
+
+    req.session.mail = req.body.mail;
+
+
 });
-app.get('/panel', function(req, res, next) {
+app.get('/panel', function (req, res, next) {
     if (req.session.token) {
 
 
 
 
-        
-        var pagina='<!doctype html><html><head></head><body>'+
-                '<p>Bienvenido</p>'+
-                req.session.mail+
-                '<br><a href="/logout">Logout</a></body></html>';
+
+        var pagina = '<!doctype html><html><head></head><body>' +
+            '<p>Bienvenido</p>' +
+            req.session.mail +
+            '<br><a href="/logout">Logout</a></body></html>';
         res.send(pagina);
     } else {
-        var pagina='<!doctype html><html><head></head><body>'+
-                '<p>No tiene permitido ingresar sin login</p>'+
-                '<br><a href="/">Retornar</a></body></html>';
-        res.send(pagina);        
+        var pagina = '<!doctype html><html><head></head><body>' +
+            '<p>No tiene permitido ingresar sin login</p>' +
+            '<br><a href="/">Retornar</a></body></html>';
+        res.send(pagina);
     }
 });
 
 
-app.get('/logout', function(req, res, next) {
-        req.session.destroy();
-        var pagina='<!doctype html><html><head></head><body>'+
-                '<br><a href="/">Retornar</a></body></html>';
-        res.send(pagina);
+app.get('/logout', function (req, res, next) {
+    req.session.destroy();
+    var pagina = '<!doctype html><html><head></head><body>' +
+        '<br><a href="/">Retornar</a></body></html>';
+    res.send(pagina);
 });
 
 module.exports = app;

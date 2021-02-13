@@ -75,8 +75,25 @@ app.get('/examentipozero',verificartoken_web,  (req, res) => {
         min = 0;
         nEjerccio = Math.floor(Math.random() * (max - min)) + min;
 
+        var opcionesMenu = [
+            {
+                'ruta':"/crearEje",
+                'slug':"Crear un ejercicio"
+            },
+            {
+                'ruta':"/listaEje",
+                'slug':"Ver la lista de ejercicios"
+            },
+            {
+                'ruta':"/examentipozero",
+                'slug':"Hacer el examen tipo"
+            }
+        ];
+
         res.render('hacerUnaPregunta',{
+            opcionesMenu : opcionesMenu,
             pregunta : preguntas[nEjerccio]
+
           });
 
     });
