@@ -1,5 +1,11 @@
 var express = require('express');
 var app = express();
+/** 
+ * ¿Que es expres?-> Es un framework que:
+ * -> maneja las peticiones http
+ * 
+ * 
+*/
 
 //const _ = require("underscore");
 const Categoria = require('../models/categoria');
@@ -9,16 +15,12 @@ const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/a
 
 
 app.get('/mostrandoPlantilla',verificartoken_web,  (req, res) => {
-    
 
     //let token = req.get('token');//
-
-
-
     res.render('primerTwig',{
         paco : "estas logeado"
       });
-    
+
 });
 
 app.get('/categoria', verificartoken, (req, res) => {

@@ -38,7 +38,9 @@ let verificartokenImagen = (req,res,next)=>{
                 }
             });
         }
-        req.usarioLog = decode.usuarioDb;// no tengo claro de donde sale ese usuarioDb
+        req.usarioLog = decode.usuarioDb;
+        // no tengo claro de donde sale ese usuarioDb
+        // respuesta: creo que lo saca de decodificar la info que hay en el jwt (jwebtoken)
         next();
     })
 };
@@ -47,6 +49,23 @@ let verificartokenImagen = (req,res,next)=>{
 //║  verificar role admin
 //╚══════════════════════╩╝
 let isAdmin = (req,res,next)=>{
+
+    usarioLog = req.usarioLog;
+
+    if (usarioLog.role != 'ADMIN_ROLE') {
+        return res.status(401).json({
+            ok: false,
+            err :{
+                'message':'No tiene permiso'
+            }
+        });
+    }
+    next();
+};
+//╔══════════════════════╦╗
+//║  usuarioDb
+//╚══════════════════════╩╝
+let usuarioDb = (req,res,next)=>{
 
     usarioLog = req.usarioLog;
 

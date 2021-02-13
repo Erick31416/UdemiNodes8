@@ -259,11 +259,6 @@ app.post('/web_login', function (req, res, next) {
 });
 app.get('/panel', function (req, res, next) {
     if (req.session.token) {
-
-
-
-
-
         var pagina = '<!doctype html><html><head></head><body>' +
             '<p>Bienvenido</p>' +
             req.session.mail +

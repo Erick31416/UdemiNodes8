@@ -5,6 +5,7 @@ var app = express();
 const E_preguntaRespuesta = require('../models/e_preguntaRespuesta');
 
 const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/autentificacion');
+//const Usuario = require('../models/usuario');
 
 
 
@@ -18,7 +19,6 @@ app.post('/postejerccio', verificartoken_web, (req, res) => {
 
     let body = req.body;
     var array = body.respuesta;
-    //var array = ["2","1"];
 
     let ejercicio = new E_preguntaRespuesta({
         enunciado: body.enunciado,
@@ -89,6 +89,17 @@ app.get('/examentipozero', verificartoken_web, (req, res) => {
                     'slug': "Hacer el examen tipo"
                 }
             ];
+
+            console.log({isAdmin, verificartoken, verificartoken_web});
+            console.log('en el req va todo lo que se ha decodificado de jwt');
+            console.log(req.usarioLog);
+
+            if (isAdmin) {
+                opcionesMenu.push({
+                    'ruta': "/addnewUser",
+                    'slug': "Crear un usuario."
+                });
+            }
 
             res.render('hacerUnaPregunta', {
                 opcionesMenu: opcionesMenu,

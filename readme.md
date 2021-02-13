@@ -6,9 +6,26 @@ Localizacion -> codigos.
 Pasos para empezar: Arrancar db
 
 Retomando esto febrero de 20201
-para arrancanr la base de datos `mongod`
+para arrancanr la base de datos `mongo`
 ha funcioando con poner npm start en la carpeta que contenia el proyecto.
-en principio para arrancar la db habria que hacer mongod, pero no se si es que esta arrancada todo el tiempo.
+
+
+Como querria que funcionase/siguientes pasos:
+Voy a guardar en cada pregunta quien ha creado esa pregunta.
+Asi puedo hacer un examen tipo que se llame, todas mis preguntas.
+Pero tambien voy a dejar que el usuario agrupaciones de preguntas asi el usuario puede pedir las preguntas de : mi tema 9 de primero de biologia tema1 
+El usuario le pondra el nombre que quiera a su carpeta pero cada carpeta tendra el codigo de carpeta "un id" visible para poder compartir una colecion de preguntas con otro usuario.
+
+Asi que las cosas que tengo que hacer son:
+front:
+-> que el usuario pueda crear **COLECCIONES**
+-> que el usuario pueda meterse dentro de una coleccion y crear las preguntas hay.
+-> que si las crea desde fuera le salga un selector para agregar la pregunta a una colecion.
+-> que el usuario pueda hacer examenes de una o varias colecciones.
+-> **Cuando creas una pregunta y cuando respondes una pregunta le puedas asignar una importancia**
+-> Editar preguntas que estan mal, añadir posibles respuestas.
+-> 
+
 
 
 **Índice**   
