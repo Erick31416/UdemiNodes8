@@ -8,18 +8,18 @@ const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/a
 
 
 
-app.get('/crearEje',verificartoken_web,  (req, res) => {
+app.get('/crearEje', verificartoken_web, (req, res) => {
 
     res.render('crearEjercicio1');
-    
+
 });
 
-app.post('/postejerccio',verificartoken_web,  (req, res) => {
+app.post('/postejerccio', verificartoken_web, (req, res) => {
 
     let body = req.body;
     var array = body.respuesta;
     //var array = ["2","1"];
-    
+
     let ejercicio = new E_preguntaRespuesta({
         enunciado: body.enunciado,
         respuestas: array,
@@ -27,94 +27,94 @@ app.post('/postejerccio',verificartoken_web,  (req, res) => {
 
     ejercicio.save((err, producto) => {//save palabra reseravada de moongose.
         if (err) {
-            console.log({err});
+            console.log({ err });
             res.render('login');
         }
         res.render('crearEjercicio1');
     });
 });
 
-app.get('/listaEje',verificartoken_web,  (req, res) => {
+app.get('/listaEje', verificartoken_web, (req, res) => {
 
     E_preguntaRespuesta.find({})
-    .exec((err, preguntas) => {
+        .exec((err, preguntas) => {
 
-        if (err) {
-            res.render('login');
-        }
-        res.render('listar',{
-            lista : preguntas
-          });
-
-    });
-    
-});
-app.get('/listaEjePostMan',  (req, res) => {
-
-    E_preguntaRespuesta.find({})
-    .exec((err, preguntas) => {
-
-        if (err) {
-            res.render('login');
-        }
-        res.preguntas;
-
-    });
-    
-});
-app.get('/examentipozero',verificartoken_web,  (req, res) => {
-
-    E_preguntaRespuesta.find({})
-    .exec((err, preguntas) => {
-
-        if (err) {
-            res.render('login');
-        }
-
-        max = preguntas.length;
-        min = 0;
-        nEjerccio = Math.floor(Math.random() * (max - min)) + min;
-
-        var opcionesMenu = [
-            {
-                'ruta':"/crearEje",
-                'slug':"Crear un ejercicio"
-            },
-            {
-                'ruta':"/listaEje",
-                'slug':"Ver la lista de ejercicios"
-            },
-            {
-                'ruta':"/examentipozero",
-                'slug':"Hacer el examen tipo"
+            if (err) {
+                res.render('login');
             }
-        ];
+            res.render('listar', {
+                lista: preguntas
+            });
 
-        res.render('hacerUnaPregunta',{
-            opcionesMenu : opcionesMenu,
-            pregunta : preguntas[nEjerccio]
+        });
 
-          });
+});
+app.get('/listaEjePostMan', (req, res) => {
 
-    });
-    
+    E_preguntaRespuesta.find({})
+        .exec((err, preguntas) => {
+
+            if (err) {
+                res.render('login');
+            }
+            res.preguntas;
+
+        });
+
+});
+app.get('/examentipozero', verificartoken_web, (req, res) => {
+
+    E_preguntaRespuesta.find({})
+        .exec((err, preguntas) => {
+
+            if (err) {
+                res.render('login');
+            }
+
+            max = preguntas.length;
+            min = 0;
+            nEjerccio = Math.floor(Math.random() * (max - min)) + min;
+
+            var opcionesMenu = [
+                {
+                    'ruta': "/crearEje",
+                    'slug': "Crear un ejercicio"
+                },
+                {
+                    'ruta': "/listaEje",
+                    'slug': "Ver la lista de ejercicios"
+                },
+                {
+                    'ruta': "/examentipozero",
+                    'slug': "Hacer el examen tipo"
+                }
+            ];
+
+            res.render('hacerUnaPregunta', {
+                opcionesMenu: opcionesMenu,
+                pregunta: preguntas[nEjerccio]
+
+            });
+
+        });
+
 });
 
-app.get('/contestar/enunciadorespuesta/:id',verificartoken_web, (req, res) => {
+app.get('/contestar/enunciadorespuesta/:id', verificartoken_web, (req, res) => {
 
     let identificador = req.params.id; // alkaparra : param
-    E_preguntaRespuesta.findById(identificador,(err,ejercicio)=>{
-    
+    E_preguntaRespuesta.findById(identificador, (err, ejercicio) => {
+
 
         if (err) {
             res.render('login');
         }
-        res.render('contestar_enunciadoRespuesta',{
-            ejercicio : ejercicio
-          });
+        res.render('contestar_enunciadoRespuesta', {
+            ejercicio: ejercicio
+        });
 
     });
-    
+
 });
 
 
