@@ -2,6 +2,8 @@
 
 # Readme mimemo.  
 
+**Se me ocurre que podria repasar el curso de udemi , e ir comentando ese codigo para que sea auto explicativo**
+
 Localizacion -> codigos.
 Pasos para empezar: Arrancar db
 
