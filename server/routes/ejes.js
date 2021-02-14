@@ -10,8 +10,31 @@ const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/a
 
 
 app.get('/crearEje', verificartoken_web, (req, res) => {
+    var opcionesMenu = [
+        {
+            'ruta': "/crearEje",
+            'slug': "Crear un ejercicio"
+        },
+        {
+            'ruta': "/listaEje",
+            'slug': "Ver la lista de ejercicios"
+        },
+        {
+            'ruta': "/examentipozero",
+            'slug': "Hacer el examen tipo"
+        }
+    ];
 
-    res.render('crearEjercicio1');
+    if (isAdmin) {
+        opcionesMenu.push({
+            'ruta': "/addnewUser",
+            'slug': "Crear un usuario."
+        });
+    }
+
+    res.render('crearEjercicio1', {
+        opcionesMenu: opcionesMenu,
+    });
 
 });
 
@@ -30,7 +53,30 @@ app.post('/postejerccio', verificartoken_web, (req, res) => {
             console.log({ err });
             res.render('login');
         }
-        res.render('crearEjercicio1');
+        var opcionesMenu = [
+            {
+                'ruta': "/crearEje",
+                'slug': "Crear un ejercicio"
+            },
+            {
+                'ruta': "/listaEje",
+                'slug': "Ver la lista de ejercicios"
+            },
+            {
+                'ruta': "/examentipozero",
+                'slug': "Hacer el examen tipo"
+            }
+        ];
+
+        if (isAdmin) {
+            opcionesMenu.push({
+                'ruta': "/addnewUser",
+                'slug': "Crear un usuario."
+            });
+        }
+        res.render('crearEjercicio1',{
+            opcionesMenu: opcionesMenu,
+        });
     });
 });
 
@@ -42,7 +88,29 @@ app.get('/listaEje', verificartoken_web, (req, res) => {
             if (err) {
                 res.render('login');
             }
+            var opcionesMenu = [
+                {
+                    'ruta': "/crearEje",
+                    'slug': "Crear un ejercicio"
+                },
+                {
+                    'ruta': "/listaEje",
+                    'slug': "Ver la lista de ejercicios"
+                },
+                {
+                    'ruta': "/examentipozero",
+                    'slug': "Hacer el examen tipo"
+                }
+            ];
+
+            if (isAdmin) {
+                opcionesMenu.push({
+                    'ruta': "/addnewUser",
+                    'slug': "Crear un usuario."
+                });
+            }
             res.render('listar', {
+                opcionesMenu: opcionesMenu,
                 lista: preguntas
             });
 
@@ -75,6 +143,7 @@ app.get('/examentipozero', verificartoken_web, (req, res) => {
             min = 0;
             nEjerccio = Math.floor(Math.random() * (max - min)) + min;
 
+            console.log(req.usarioLog);
             var opcionesMenu = [
                 {
                     'ruta': "/crearEje",
@@ -89,10 +158,6 @@ app.get('/examentipozero', verificartoken_web, (req, res) => {
                     'slug': "Hacer el examen tipo"
                 }
             ];
-
-            console.log({isAdmin, verificartoken, verificartoken_web});
-            console.log('en el req va todo lo que se ha decodificado de jwt');
-            console.log(req.usarioLog);
 
             if (isAdmin) {
                 opcionesMenu.push({
@@ -119,6 +184,27 @@ app.get('/contestar/enunciadorespuesta/:id', verificartoken_web, (req, res) => {
 
         if (err) {
             res.render('login');
+        }
+        var opcionesMenu = [
+            {
+                'ruta': "/crearEje",
+                'slug': "Crear un ejercicio"
+            },
+            {
+                'ruta': "/listaEje",
+                'slug': "Ver la lista de ejercicios"
+            },
+            {
+                'ruta': "/examentipozero",
+                'slug': "Hacer el examen tipo"
+            }
+        ];
+
+        if (isAdmin) {
+            opcionesMenu.push({
+                'ruta': "/addnewUser",
+                'slug': "Crear un usuario."
+            });
         }
         res.render('contestar_enunciadoRespuesta', {
             ejercicio: ejercicio
