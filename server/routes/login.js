@@ -8,6 +8,9 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 const Usuario = require('../models/usuario');
 const app = express();
 
+const constOpcionesMenu = require ('../menus/menus');
+const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/autentificacion');
+
 
 app.post('/login', function (req, res) {
     let body = req.body;
@@ -174,21 +177,6 @@ app.post('/web_login', function (req, res, next) {
 
     Usuario.findOne({ email: body.mail }, (err, usuarioDb) => {
 
-        var opcionesMenu = [
-            {
-                'ruta': "/crearEje",
-                'slug': "Crear un ejercicio"
-            },
-            {
-                'ruta': "/listaEje",
-                'slug': "Ver la lista de ejercicios"
-            },
-            {
-                'ruta': "/examentipozero",
-                'slug': "Hacer el examen tipo"
-            }
-        ];
-
 
         var pagina = '';
         if (err) {
@@ -238,12 +226,15 @@ app.post('/web_login', function (req, res, next) {
         req.session.token = token;
         //res.send(pagina); 
         console.log(usuarioDb.role);
-        if (usuarioDb.role = 'ADMIN_ROLE') {
+        // no podemos hacer una asigancion normal por que eso referenciaria el array y lo modificaria
+        let opcionesMenu = constOpcionesMenu.slice();
+        if (isAdmin) {
             opcionesMenu.push({
                 'ruta': "/addnewUser",
                 'slug': "Crear un usuario."
             });
         }
+        console.log({constOpcionesMenu});
 
         res.render('menuPrincipal', {
             opcionesMenu: opcionesMenu,

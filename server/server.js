@@ -10,8 +10,6 @@ const mongoose = require('mongoose');
 //esto es necesario para el app.use express.static --dirname +public. no se por que 
 const path = require('path');
 
-
-
 app.set('views', path.resolve( __dirname , '../public'));
 app.set('view engine', 'twig');
 
@@ -24,14 +22,6 @@ app.use(session({secret: '123456', resave: true, saveUninitialized: true}));
 //habilitar el public
 //console.log(path.resolve( __dirname + '../public'));
 app.use(express.static(path.resolve( __dirname , '../public')));
-
-
-
-
-
-
-
-
 
 //configuracion global de rutas
 app.use(require('./routes/index'));

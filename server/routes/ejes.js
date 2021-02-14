@@ -7,29 +7,17 @@ const E_preguntaRespuesta = require('../models/e_preguntaRespuesta');
 const { isAdmin, verificartoken, verificartoken_web } = require('../midelwares/autentificacion');
 //const Usuario = require('../models/usuario');
 
-
+const constOpcionesMenu = require ('../menus/menus');
+let isOptAdminAdd = false;
 
 app.get('/crearEje', verificartoken_web, (req, res) => {
-    var opcionesMenu = [
-        {
-            'ruta': "/crearEje",
-            'slug': "Crear un ejercicio"
-        },
-        {
-            'ruta': "/listaEje",
-            'slug': "Ver la lista de ejercicios"
-        },
-        {
-            'ruta': "/examentipozero",
-            'slug': "Hacer el examen tipo"
-        }
-    ];
 
+    let opcionesMenu = constOpcionesMenu.slice();
+    
     if (isAdmin) {
-        opcionesMenu.push({
-            'ruta': "/addnewUser",
-            'slug': "Crear un usuario."
-        });
+        opcionesMenu = constOpcionesMenu;
+    }else{
+        opcionesMenu = constOpcionesMenuAdmin;
     }
 
     res.render('crearEjercicio1', {
@@ -53,26 +41,14 @@ app.post('/postejerccio', verificartoken_web, (req, res) => {
             console.log({ err });
             res.render('login');
         }
-        var opcionesMenu = [
-            {
-                'ruta': "/crearEje",
-                'slug': "Crear un ejercicio"
-            },
-            {
-                'ruta': "/listaEje",
-                'slug': "Ver la lista de ejercicios"
-            },
-            {
-                'ruta': "/examentipozero",
-                'slug': "Hacer el examen tipo"
-            }
-        ];
 
+        let opcionesMenu = constOpcionesMenu.slice();
+        
+        
         if (isAdmin) {
-            opcionesMenu.push({
-                'ruta': "/addnewUser",
-                'slug': "Crear un usuario."
-            });
+            opcionesMenu = constOpcionesMenu;
+        }else{
+            opcionesMenu = constOpcionesMenuAdmin;
         }
         res.render('crearEjercicio1',{
             opcionesMenu: opcionesMenu,
@@ -88,26 +64,13 @@ app.get('/listaEje', verificartoken_web, (req, res) => {
             if (err) {
                 res.render('login');
             }
-            var opcionesMenu = [
-                {
-                    'ruta': "/crearEje",
-                    'slug': "Crear un ejercicio"
-                },
-                {
-                    'ruta': "/listaEje",
-                    'slug': "Ver la lista de ejercicios"
-                },
-                {
-                    'ruta': "/examentipozero",
-                    'slug': "Hacer el examen tipo"
-                }
-            ];
 
+            let opcionesMenu = constOpcionesMenu.slice();
+            
             if (isAdmin) {
-                opcionesMenu.push({
-                    'ruta': "/addnewUser",
-                    'slug': "Crear un usuario."
-                });
+                opcionesMenu = constOpcionesMenu;
+            }else{
+                opcionesMenu = constOpcionesMenuAdmin;
             }
             res.render('listar', {
                 opcionesMenu: opcionesMenu,
@@ -144,26 +107,13 @@ app.get('/examentipozero', verificartoken_web, (req, res) => {
             nEjerccio = Math.floor(Math.random() * (max - min)) + min;
 
             console.log(req.usarioLog);
-            var opcionesMenu = [
-                {
-                    'ruta': "/crearEje",
-                    'slug': "Crear un ejercicio"
-                },
-                {
-                    'ruta': "/listaEje",
-                    'slug': "Ver la lista de ejercicios"
-                },
-                {
-                    'ruta': "/examentipozero",
-                    'slug': "Hacer el examen tipo"
-                }
-            ];
 
+            let opcionesMenu = constOpcionesMenu.slice();
+            
             if (isAdmin) {
-                opcionesMenu.push({
-                    'ruta': "/addnewUser",
-                    'slug': "Crear un usuario."
-                });
+                opcionesMenu = constOpcionesMenu;
+            }else{
+                opcionesMenu = constOpcionesMenuAdmin;
             }
 
             res.render('hacerUnaPregunta', {
@@ -185,26 +135,13 @@ app.get('/contestar/enunciadorespuesta/:id', verificartoken_web, (req, res) => {
         if (err) {
             res.render('login');
         }
-        var opcionesMenu = [
-            {
-                'ruta': "/crearEje",
-                'slug': "Crear un ejercicio"
-            },
-            {
-                'ruta': "/listaEje",
-                'slug': "Ver la lista de ejercicios"
-            },
-            {
-                'ruta': "/examentipozero",
-                'slug': "Hacer el examen tipo"
-            }
-        ];
 
+        let opcionesMenu = constOpcionesMenu.slice();
+        
         if (isAdmin) {
-            opcionesMenu.push({
-                'ruta': "/addnewUser",
-                'slug': "Crear un usuario."
-            });
+            opcionesMenu = constOpcionesMenu;
+        }else{
+            opcionesMenu = constOpcionesMenuAdmin;
         }
         res.render('contestar_enunciadoRespuesta', {
             ejercicio: ejercicio
