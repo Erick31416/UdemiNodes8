@@ -24,9 +24,12 @@ body {
     text-align: center;
     border-color: #836188;
     max-width: 500px;
-    margin: auto;
+    margin: 1rem auto;
     background: #ccd258;
     color: #4f275b;
+}
+.apartadito input{
+    max-width: 100%;
 }
 label.apartidito_lavel {
     display: block;
@@ -63,16 +66,13 @@ input[type="submit"] {
 .deslegable__opcion{
     
 }
-.hamburgesa__desplegada {
-    position: absolute;
-}
 .deslegable__opcion:hover{
     display:block;
 }
 .menusuperior {
-        border: solid;
-        border-radius: 5px;
-        padding: 5px;
+    border: solid;
+    border-radius: 5px;
+    padding: 5px;
     border-color: #D24BAE;
     background: #4F275B;
     color: #D2E6AF;
@@ -80,6 +80,7 @@ input[type="submit"] {
 }
 .hamburgesa__desplegada {
     display: none;
+    z-index: 5;
     position: absolute;
     top: 40px;
     margin: 10px 0;

@@ -1,14 +1,14 @@
 {% include 'piezasComunes/cabezera.twig' %}
 {% include 'piezasComunes/logoYnav.twig' %}
 
-<div class="googleSearchStyle apartadito">
+<div class="apartadito">
 
     <form method="post" action="/postejerccio">
         Ingrese enunciado:
         <input type="text" name="enunciado" size="50">
         <br>
         Ingrese respuesta::
-        <input type="text" name="respuesta" size="20">
+        <input type="text" name="respuesta" size="50">
         <br>
         <div id = "ancla"></div>
         <input type="submit" value="guardar">
@@ -21,10 +21,9 @@
 function myFunction(){
 
     var div = document.getElementById('ancla');
-    
     div.innerHTML += `
             Ingrese respuesta:
-            <input type="text" name="respuesta" size="20">
+            <input type="text" name="respuesta" size="50">
             <br>
 `;
 
