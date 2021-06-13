@@ -2,17 +2,15 @@
 
 # Readme mimemo.  
 
-**Se me ocurre que podria repasar el curso de udemi , e ir comentando ese codigo para que sea auto explicativo**
+**Se me ocurre que podría repasar el curso de udemi, e ir comentando ese código para que sea auto explicativo**
 
-Localizacion -> codigos.
-Pasos para empezar: Arrancar db
+Localizacion -> 2020 mimemo.
+Pasos para empezar: Arrancar db -> mongod
+Para arrancar el servidor en local -> npm start en la carpeta que contenia el proyecto.
+Para ver los proyectos que tengo en heroku -> heroku apps
+Para ver el log del sevidor de heroku -> heroku log -t -a nombredelproyecto.
 
-Retomando esto febrero de 20201
-para arrancanr la base de datos `mongo`
-ha funcioando con poner npm start en la carpeta que contenia el proyecto.
-
-
-Como querria que funcionase/siguientes pasos:
+Siguiente fase:
 Voy a guardar en cada pregunta quien ha creado esa pregunta.
 Asi puedo hacer un examen tipo que se llame, todas mis preguntas.
 Pero tambien voy a dejar que el usuario agrupaciones de preguntas asi el usuario puede pedir las preguntas de : mi tema 9 de primero de biologia tema1 

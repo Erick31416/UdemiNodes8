@@ -192,6 +192,8 @@ app.post('/web_login', function (req, res, next) {
             //    err
             //});
         }
+        console.log('usuarioDb:');
+        console.log(usuarioDb);
 
         if (!usuarioDb) {
             console.log('no hay usuarios');
@@ -201,15 +203,17 @@ app.post('/web_login', function (req, res, next) {
                 '</body></html>';
             error = 1;
 
-            //return res.status(400).json({//400 -> bad request
-            //    ok: false,
-            //    err:{
-            //        message: 'alkaparra-> Usuario o contraseña incorrecta'
-            //    }
-            //});
+            return res.status(400).json({//400 -> bad request
+                ok: false,
+                err:{
+                    message: 'alkaparra-> Usuario o contraseña incorrecta'
+                }
+            });
         }
-
-        if (!bcrypt.compareSync(body.password, usuarioDb.password)) {
+        console.log('body , Usuario,');
+        console.log(body);
+        console.log(usuarioDb);
+        if (error == 0 && !bcrypt.compareSync(body.password, usuarioDb.password)) {
             console.log('contreaseña ma');
             var pagina = '<!doctype html><html><head></head><body>' +
                 '<p>No contraseña:</p>' +
@@ -225,7 +229,7 @@ app.post('/web_login', function (req, res, next) {
         );
         req.session.token = token;
         //res.send(pagina); 
-        console.log(usuarioDb.role);
+        //console.log(usuarioDb.role);
         // no podemos hacer una asigancion normal por que eso referenciaria el array y lo modificaria
         let opcionesMenu = constOpcionesMenu.slice();
         if (isAdmin) {
